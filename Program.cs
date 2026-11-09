@@ -7,9 +7,7 @@ using BookHaven.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Database connection
-var connectionString = builder.Configuration
-    .GetConnectionString("DefaultConnection")
-    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION");
     Console.WriteLine("DefaultConnection exists: " +
     !string.IsNullOrWhiteSpace(
         builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -17,7 +15,7 @@ var connectionString = builder.Configuration
 Console.WriteLine("DATABASE_URL exists: " +
     !string.IsNullOrWhiteSpace(
         Environment.GetEnvironmentVariable("DATABASE_URL")));
-        
+
         Console.WriteLine("RAILWAY_TEST: " +
     Environment.GetEnvironmentVariable("RAILWAY_TEST"));
 
