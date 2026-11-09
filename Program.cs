@@ -17,6 +17,9 @@ var connectionString = builder.Configuration
 Console.WriteLine("DATABASE_URL exists: " +
     !string.IsNullOrWhiteSpace(
         Environment.GetEnvironmentVariable("DATABASE_URL")));
+        
+        Console.WriteLine("RAILWAY_TEST: " +
+    Environment.GetEnvironmentVariable("RAILWAY_TEST"));
 
 if (string.IsNullOrWhiteSpace(connectionString))
 {
