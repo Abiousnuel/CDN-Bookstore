@@ -8,7 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Database connection
 var connectionString = builder.Configuration
-    .GetConnectionString("DefaultConnection");
+    .GetConnectionString("DefaultConnection")
+    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException(
+        "Database connection string is missing. Check Railway variables.");
+}
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
