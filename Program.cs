@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Database connection
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION");
+Console.WriteLine("DATABASE_CONNECTION exists: " +
+    !string.IsNullOrWhiteSpace(
+        Environment.GetEnvironmentVariable("DATABASE_CONNECTION")));
     Console.WriteLine("DefaultConnection exists: " +
     !string.IsNullOrWhiteSpace(
         builder.Configuration.GetConnectionString("DefaultConnection")));
