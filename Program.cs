@@ -10,6 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration
     .GetConnectionString("DefaultConnection")
     ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+    Console.WriteLine("DefaultConnection exists: " +
+    !string.IsNullOrWhiteSpace(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+Console.WriteLine("DATABASE_URL exists: " +
+    !string.IsNullOrWhiteSpace(
+        Environment.GetEnvironmentVariable("DATABASE_URL")));
 
 if (string.IsNullOrWhiteSpace(connectionString))
 {
