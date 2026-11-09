@@ -11,7 +11,7 @@ var connectionString = builder.Configuration
     .GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 
 // Identity and user accounts
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -37,7 +37,11 @@ builder.Services.AddHttpClient<PaystackService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await db.Database.MigrateAsync();
+}
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
