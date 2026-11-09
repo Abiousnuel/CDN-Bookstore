@@ -1,0 +1,66 @@
+
+@{
+    ViewData["Title"] = "Payment Confirmation";
+
+    bool success = ViewBag.PaymentSuccess is bool value && value;
+
+    string message = ViewBag.PaymentMessage
+        ?? "We could not retrieve your payment information.";
+}
+
+<section class="section-padding">
+    <div class="container text-center">
+        <div class="mx-auto p-5 shadow rounded"
+             style="max-width: 650px;">
+
+            @if (success)
+            {
+                <div class="mb-4">
+                    <span style="font-size: 65px; color: #198754;">
+                        ✓
+                    </span>
+                </div>
+
+                <h1 class="text-success">Payment Successful!</h1>
+
+                <p class="lead mt-3">
+                    Thank you for purchasing from Christ Dominion Network.
+                </p>
+            }
+            else
+            {
+                <div class="mb-4">
+                    <span style="font-size: 65px; color: #dc3545;">
+                        !
+                    </span>
+                </div>
+
+                <h1>Payment Not Confirmed</h1>
+            }
+
+            <p class="mt-3">@message</p>
+
+            <div class="mt-4">
+                <a asp-controller="Books"
+                   asp-action="Index"
+                   class="btn btn-primary">
+                    Browse Books
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary ms-2">
+                    Return Home
+                </a>
+            </div>
+
+            <hr class="my-4" />
+
+            <small class="text-muted">
+                CDN — Christ Dominion Network
+                <br />
+                Knowledge for a Greater Life.
+            </small>
+        </div>
+    </div>
+</section>

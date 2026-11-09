@@ -1,0 +1,167 @@
+﻿
+@model IEnumerable<BookHaven.Models.Book>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 hero-content">
+                <span class="hero-label">
+                    WELCOME TO CHRIST DOMINION NETWORK
+                </span>
+
+                <h1>
+                    Knowledge for a
+                    <span>Greater Life.</span>
+                </h1>
+
+                <p>
+                    Discover a world of knowledge, faith, inspiration and personal growth.
+                    Explore our collection of digital books and take the next step
+                    towards becoming your best self.
+                </p>
+
+                <a asp-controller="Books" asp-action="Index"
+                   class="btn primary-btn">
+                    Explore Our Books →
+                </a>
+
+                <div class="hero-stats">
+                    <div>
+                        <h4>500+</h4>
+                        <small>Digital Books</small>
+                    </div>
+
+                    <div>
+                        <h4>100+</h4>
+                        <small>Happy Readers</small>
+                    </div>
+
+                    <div>
+                        <h4>24/7</h4>
+                        <small>Access</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 hero-image">
+                <img src="~/images/books/default-cover.png"
+                     alt="Christ Dominion Network digital books">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section-padding" id="about">
+    <div class="container">
+
+        <div class="section-heading text-center">
+            <span>DISCOVER CDN</span>
+            <h2>Featured E-books</h2>
+            <p>
+                Explore books that inspire, educate and encourage personal growth.
+            </p>
+        </div>
+
+        <div class="featured-books-grid">
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var book in Model)
+                {
+                    <div class="book-card">
+
+                        <a asp-controller="Books"
+                           asp-action="Details"
+                           asp-route-id="@book.Id">
+                            <img src="@(string.IsNullOrWhiteSpace(book.CoverImage)
+                                ? "/images/books/default-cover.png"
+                                : book.CoverImage)"
+                                 alt="@book.Title"
+                                 onerror="this.onerror=null;this.src='/images/books/default-cover.png';">
+                        </a>
+
+                        <div class="book-info">
+                            <h5>@book.Title</h5>
+                            <p>@book.Author</p>
+                            <strong>₦@book.Price.ToString("N0")</strong>
+
+                            <a asp-controller="Books"
+                               asp-action="Details"
+                               asp-route-id="@book.Id"
+                               class="book-link">
+                                View Details →
+                            </a>
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center w-100">
+                    <p>No books are currently available. Please check back soon.</p>
+                </div>
+            }
+
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-controller="Books" asp-action="Index"
+               class="btn outline-btn">
+                View All Books
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<section class="benefits-section">
+    <div class="container text-center">
+
+        <h2>Why Choose CDN?</h2>
+        <p>We make learning and reading accessible to everyone.</p>
+
+        <div class="row g-4 mt-3">
+
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <h3>01</h3>
+                    <h5>Instant Access</h5>
+                    <p>
+                        Access your purchased digital books conveniently
+                        from compatible devices.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <h3>02</h3>
+                    <h5>Affordable Reading</h5>
+                    <p>
+                        Discover valuable books at affordable prices
+                        for your learning journey.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <h3>03</h3>
+                    <h5>Learn Anywhere</h5>
+                    <p>
+                        Enjoy your digital library wherever you are
+                        and whenever you want.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

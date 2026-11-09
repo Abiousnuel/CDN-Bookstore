@@ -1,0 +1,76 @@
+
+@model IEnumerable<BookHaven.Models.Book>
+
+@{
+    ViewData["Title"] = "Explore Books";
+}
+
+<section class="catalogue-section section-padding">
+    <div class="container">
+
+        <div class="section-heading text-center">
+            <span>CHRIST DOMINION NETWORK</span>
+            <h1>Explore Our E-books</h1>
+            <p>Find the perfect book to inspire, educate and entertain you.</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="bookSearch"
+                   placeholder="Search by book title, author or category...">
+        </div>
+
+        <div class="row g-4" id="bookList">
+
+            @foreach (var book in Model)
+            {
+                <div class="col-6 col-md-4 col-lg-3 book-item"
+                     data-search="@($"{book.Title} {book.Author} {book.Category?.Name}")">
+
+                    <div class="book-card">
+
+                        <a asp-action="Details" asp-route-id="@book.Id">
+                            <img src="@(string.IsNullOrWhiteSpace(book.CoverImage)
+                                ? "/images/books/default-cover.png"
+                                : book.CoverImage)"
+                                 alt="@book.Title"
+                                 onerror="this.onerror=null;this.src='/images/books/default-cover.png';">
+                        </a>
+
+                        <div class="book-info">
+                            <span class="book-category">
+                                @book.Category?.Name
+                            </span>
+
+                            <h5>@book.Title</h5>
+
+                            <p>@book.Author</p>
+
+                            <strong>₦@book.Price.ToString("N0")</strong>
+
+                            <a asp-action="Details"
+                               asp-route-id="@book.Id"
+                               class="book-link">
+                                View Details →
+                            </a>
+
+                            <button class="btn add-cart-btn w-100 mt-2"
+                                    data-id="@book.Id"
+                                    data-title="@book.Title"
+                                    data-price="@book.Price"
+                                    data-image="@book.CoverImage">
+                                Add to Cart
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <p id="noBooks" class="text-center mt-4" hidden>
+            No books found.
+        </p>
+
+    </div>
+</section>

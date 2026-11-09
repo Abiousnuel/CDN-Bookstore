@@ -1,0 +1,75 @@
+
+@model BookHaven.Models.Book
+
+@{
+    ViewData["Title"] = Model.Title;
+
+    var coverImage = string.IsNullOrWhiteSpace(Model.CoverImage)
+        ? "/images/books/default-cover.png"
+        : Model.CoverImage;
+
+    var categoryName = Model.Category?.Name ?? "General";
+}
+
+<section class="details-section section-padding">
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-md-5 text-center">
+                <img src="@coverImage"
+                     class="details-cover"
+                     alt="@Model.Title"
+                     onerror="this.onerror=null;this.src='/images/books/default-cover.png';">
+            </div>
+
+            <div class="col-md-7">
+
+                <span class="book-category">@categoryName</span>
+
+                <h1 class="details-title">@Model.Title</h1>
+
+                <p class="details-author">
+                    By @Model.Author
+                </p>
+
+                <h2 class="details-price">
+                    ₦@Model.Price.ToString("N0")
+                </h2>
+
+                <hr>
+
+                <h5>About this book</h5>
+
+                <p class="details-description">
+                    @(string.IsNullOrWhiteSpace(Model.Description)
+                        ? "Discover this book and explore the knowledge and inspiration it offers."
+                        : Model.Description)
+                </p>
+
+                <button class="btn primary-btn add-cart-btn"
+                        data-id="@Model.Id"
+                        data-title="@Model.Title"
+                        data-price="@Model.Price"
+                        data-image="@coverImage">
+                    Add to Shopping Cart
+                </button>
+
+                <a asp-controller="Books"
+                   asp-action="Index"
+                   class="btn outline-btn ms-2">
+                    Back to Books
+                </a>
+
+                <div class="mt-4">
+                    <small class="text-muted">
+                        CHRIST DOMINION NETWORK — Knowledge for a Greater Life.
+                    </small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,33 @@
+
+# Build files
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# User-specific settings
+*.userosscache
+*.sln.docstates
+
+# .NET secrets and local configuration
+secrets.json
+.env
+.env.*
+
+# Logs
+*.log
+
+# Temporary files
+Temp/
+tmp/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+# Private customer book files
+App_Data/BookFiles/
+# Local development configuration
+appsettings.Development.json

@@ -1,0 +1,84 @@
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<section class="cart-section section-padding">
+    <div class="container">
+
+        <div class="section-heading text-center">
+            <span>CHRIST DOMINION NETWORK</span>
+            <h1>Your Shopping Cart</h1>
+            <p>Review your selected e-books before proceeding to checkout.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-8">
+
+                <div id="cartItems" class="cart-items">
+                    <!-- Cart items are rendered by JavaScript -->
+                </div>
+
+                <div id="emptyCart" class="empty-cart" hidden>
+                    <h3>Your cart is currently empty.</h3>
+                    <p>Discover books that inspire, educate and transform your life.</p>
+
+                    <a asp-controller="Books"
+                       asp-action="Index"
+                       class="btn primary-btn">
+                        Explore CDN Books
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="cart-summary">
+                    <h4>Order Summary</h4>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal</span>
+                        <strong id="cartSubtotal">₦0</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <span>Delivery</span>
+                        <strong>Free</strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <strong>Total</strong>
+                        <h4 id="cartTotal">₦0</h4>
+                    </div>
+
+                    <button class="btn primary-btn w-100 mt-4"
+                            id="checkoutBtn">
+                        Proceed to Checkout
+                    </button>
+
+                    <p class="small text-muted mt-3">
+                        Thank you for choosing Christ Dominion Network.
+                        Secure checkout and payment processing will be handled
+                        through the checkout system.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+            <small>CDN — Knowledge for a Greater Life.</small>
+        </div>
+    </div>
+    <form id="checkoutAntiForgeryForm" hidden>
+    @Html.AntiForgeryToken()
+</form>
+</section>
