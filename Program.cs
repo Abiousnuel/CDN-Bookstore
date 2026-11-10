@@ -7,26 +7,30 @@ using BookHaven.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Database connection
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION");
-Console.WriteLine("DATABASE_CONNECTION exists: " +
-    !string.IsNullOrWhiteSpace(
-        Environment.GetEnvironmentVariable("DATABASE_CONNECTION")));
-    Console.WriteLine("DefaultConnection exists: " +
-    !string.IsNullOrWhiteSpace(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+// Database connection
+// Database connection
+var connectionString =
+    Environment.GetEnvironmentVariable("DATABASE_CONNECTION");
 
-Console.WriteLine("DATABASE_URL exists: " +
-    !string.IsNullOrWhiteSpace(
-        Environment.GetEnvironmentVariable("DATABASE_URL")));
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    connectionString =
+        Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL");
+}
 
-        Console.WriteLine("RAILWAY_TEST: " +
-    Environment.GetEnvironmentVariable("RAILWAY_TEST"));
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    connectionString =
+        builder.Configuration.GetConnectionString("DefaultConnection");
+}
 
 if (string.IsNullOrWhiteSpace(connectionString))
 {
     throw new InvalidOperationException(
-        "Database connection string is missing. Check Railway variables.");
+        "Database connection string is missing.");
 }
+
+Console.WriteLine("Database connection configured: True");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
